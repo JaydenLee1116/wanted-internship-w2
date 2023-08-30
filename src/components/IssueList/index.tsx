@@ -23,14 +23,16 @@ export const IssueList = () => {
     <S.Container>
       {data?.map((issue, index) => (
         <>
-          <IssueItem
-            key={`${issue.id}`}
-            number={issue.number}
-            title={issue.title}
-            login={issue.user.login}
-            created_at={issue.created_at}
-            comments={issue.comments}
-          />
+          <S._Link to={`/detail/${issue.number}`}>
+            <IssueItem
+              key={`${issue.id}`}
+              number={issue.number}
+              title={issue.title}
+              login={issue.user.login}
+              created_at={issue.created_at}
+              comments={issue.comments}
+            />
+          </S._Link>
           {isMultipleOf(BANNER_STANDARD_NUMBER, index + 1) && (
             <S.Banner key={`${issue.id}_banner`}>
               <S._Link to={WANTED_URL} target="_blank" rel="noopener noreferrer">
