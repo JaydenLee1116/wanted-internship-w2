@@ -7,4 +7,8 @@ export const GlobalStyles = createGlobalStyle`
     border: none;  
     box-sizing: border-box;
     }
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 `;
