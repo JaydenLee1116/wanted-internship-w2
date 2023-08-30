@@ -4,24 +4,28 @@ import { devtools } from 'zustand/middleware';
 interface RepoOwnerNameStore {
   repoOwnerName: string;
   changeRepoOwnerName: (newRepoOwnerName: string) => void;
+  initializeRepoOwnerName: () => void;
 }
 
 export const useRepoOwnerNameStore = create<RepoOwnerNameStore>()(
   devtools(set => ({
     repoOwnerName: '',
     changeRepoOwnerName: newRepoOwnerName => set({ repoOwnerName: newRepoOwnerName }),
+    initializeRepoOwnerName: () => set({ repoOwnerName: '' }),
   })),
 );
 
 interface RepoNameStore {
   repoName: string;
   changeRepoName: (newRepoName: string) => void;
+  initializeRepoName: () => void;
 }
 
 export const useRepoNameStore = create<RepoNameStore>()(
   devtools(set => ({
     repoName: '',
     changeRepoName: newRepoName => set({ repoName: newRepoName }),
+    initializeRepoName: () => set({ repoName: '' }),
   })),
 );
 
