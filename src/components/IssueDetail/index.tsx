@@ -31,7 +31,7 @@ export const IssueDetail = () => {
       <S.Container>
         <S.Top>
           <S.Left>
-            <S.Avatar />
+            <S.Avatar src={issue.user.avatar_url} />
           </S.Left>
           <S.Center>
             <S.MainInfo>{`#${issue.number} ${issue.title}`}</S.MainInfo>
@@ -44,7 +44,7 @@ export const IssueDetail = () => {
           </S.Right>
         </S.Top>
         <S.Bottom>
-          <S.IssueBody></S.IssueBody>
+          <S.IssueBody>{issue.body}</S.IssueBody>
         </S.Bottom>
       </S.Container>
     )
