@@ -3,8 +3,8 @@ interface ThrottleParams {
   delay: number;
 }
 
+let throttled = false;
 export const throttle = ({ callback, delay }: ThrottleParams) => {
-  let throttled = false;
   return () => {
     if (!throttled) {
       callback();

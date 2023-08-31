@@ -38,3 +38,11 @@ export const Image = styled.img`
   width: 110px;
   height: 40px;
 `;
+
+export const InfiniteScrollTarget = styled.div`
+  width: 100%;
+  height: 20px;
+  text-align: center;
+  color: black;
+  background-color: ${({ theme }) => theme.colors.default};
+`;
