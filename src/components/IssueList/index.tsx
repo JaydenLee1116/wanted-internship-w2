@@ -7,7 +7,12 @@ import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import { isMultipleOf } from '../../utils/isMultipleOf';
 import { throttle } from '../../utils/throttle';
 import { IssueItem } from './IssueItem';
-import { BANNER_STANDARD_NUMBER, WANTED_BANNER_IMAGE_URL, WANTED_URL } from '../../constants';
+import {
+  BANNER_STANDARD_NUMBER,
+  DATA_NUMBER_PER_SCROLL,
+  WANTED_BANNER_IMAGE_URL,
+  WANTED_URL,
+} from '../../constants';
 
 import * as S from './IssueList.styled';
 
@@ -49,7 +54,7 @@ export const IssueList = () => {
                 </S._Link>
               </S.Banner>
             )}
-            {isMultipleOf(10, index + 1) && (
+            {isMultipleOf(DATA_NUMBER_PER_SCROLL, index + 1) && (
               <S.InfiniteScrollTarget ref={target}></S.InfiniteScrollTarget>
             )}
           </>
