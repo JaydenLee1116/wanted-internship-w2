@@ -1,11 +1,12 @@
 import React from 'react';
+import MarkdownPreview from '@uiw/react-markdown-preview';
 
 import { useIssueNumberLocation } from '../../hooks/useIssueNumberLocation';
 import { useGetIssue } from '../../hooks/useGetIssue';
+import { useRepoNameStore, useRepoOwnerNameStore } from '../../hooks/useStore';
 import { getKoreanDate } from '../../utils/getKoreanDate';
 
 import * as S from './IssueDetail.styled';
-import { useRepoNameStore, useRepoOwnerNameStore } from '../../hooks/useStore';
 
 export const IssueDetail = () => {
   const { issueNumber } = useIssueNumberLocation();
@@ -44,7 +45,9 @@ export const IssueDetail = () => {
           </S.Right>
         </S.Top>
         <S.Bottom>
-          <S.IssueBody>{issue.body}</S.IssueBody>
+          <S.IssueBody>
+            <MarkdownPreview source={issue.body} />
+          </S.IssueBody>
         </S.Bottom>
       </S.Container>
     )
