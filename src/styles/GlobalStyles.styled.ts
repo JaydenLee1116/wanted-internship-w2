@@ -6,6 +6,9 @@ export const GlobalStyles = createGlobalStyle`
   * {
     border: none;  
     box-sizing: border-box;
+    ::-webkit-scrollbar {
+    display: none;
+  }
     }
   a {
     text-decoration: none;

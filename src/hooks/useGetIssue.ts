@@ -7,11 +7,11 @@ import { GITHUB_API_PATH } from '../api/apiConfig';
 import { Issue } from '../types';
 import { useRepoNameStore, useRepoOwnerNameStore } from './useStore';
 
-interface useGetIssuesProps {
+interface useGetIssueProps {
   issueNumber: number;
 }
 
-export const useGetIssue = ({ issueNumber }: useGetIssuesProps) => {
+export const useGetIssue = ({ issueNumber }: useGetIssueProps) => {
   const [data, setData] = useState<Issue | null>(null);
   const [error, setError] = useState<AxiosError | null>(null);
   const [isError, setIsError] = useState(false);
