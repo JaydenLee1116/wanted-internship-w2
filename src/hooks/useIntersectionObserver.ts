@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react';
-// import { usePageNumberStore } from './useStore';
 
 interface useIntersectionObserverProps {
   callback: () => void;
@@ -9,7 +8,6 @@ interface useIntersectionObserverProps {
 export const useIntersectionObserver = ({ callback, options }: useIntersectionObserverProps) => {
   const observer = useRef<IntersectionObserver | null>(null);
   const target = useRef<HTMLDivElement | null>(null);
-  // const { pageNumber } = usePageNumberStore();
   useEffect(() => {
     if (observer.current) {
       observer.current.disconnect();
@@ -24,6 +22,6 @@ export const useIntersectionObserver = ({ callback, options }: useIntersectionOb
       }, options);
       observer.current.observe(target.current);
     }
-  }, [target]);
+  }, [callback]);
   return target;
 };

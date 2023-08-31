@@ -6,8 +6,8 @@ import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 
 import { isMultipleOf } from '../../utils/isMultipleOf';
 import { throttle } from '../../utils/throttle';
-import { BANNER_STANDARD_NUMBER, WANTED_BANNER_IMAGE_URL, WANTED_URL } from '../../constants';
 import { IssueItem } from './IssueItem';
+import { BANNER_STANDARD_NUMBER, WANTED_BANNER_IMAGE_URL, WANTED_URL } from '../../constants';
 
 import * as S from './IssueList.styled';
 
@@ -22,11 +22,9 @@ export const IssueList = () => {
     return <div>{error?.message}</div>;
   }
 
-  const { pageNumber, increasePageNumber } = usePageNumberStore();
+  const { increasePageNumber } = usePageNumberStore();
   const target = useIntersectionObserver({
-    callback: () => {
-      throttle({ callback: increasePageNumber, delay: 1000 })();
-    },
+    callback: throttle({ callback: increasePageNumber, delay: 1000 }),
   });
 
   return (
@@ -51,7 +49,9 @@ export const IssueList = () => {
                 </S._Link>
               </S.Banner>
             )}
-            {isMultipleOf(10, index + 1) && <div ref={target}>{pageNumber}</div>}
+            {isMultipleOf(10, index + 1) && (
+              <S.InfiniteScrollTarget ref={target}></S.InfiniteScrollTarget>
+            )}
           </>
         ))}
       </S.Container>
