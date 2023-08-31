@@ -33,7 +33,12 @@ export const useGetIssues = () => {
           GITHUB_API_PATH.getIssues(repoOwnerName, repoName, pageNumber),
         );
         const { data } = response;
-        setData(data);
+        setData(prev => {
+          if (prev === null) {
+            return data;
+          }
+          return [...prev, ...data];
+        });
       } catch (error) {
         setError(error as AxiosError);
         setIsError(true);
@@ -43,7 +48,7 @@ export const useGetIssues = () => {
       fetchData();
     }
     setIsLoading(false);
-  }, [isSearchMode]);
+  }, [isSearchMode, pageNumber]);
 
   return {
     data,
