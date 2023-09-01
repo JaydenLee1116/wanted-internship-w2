@@ -17,17 +17,16 @@ export const useGetIssues = () => {
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  // FIXME: isSearchMode 로 useGetIssues 를 호출하는 로직을 분리해보기(클라/서버 상태 분리)
   const { isSearchMode } = useIsSearchModeStore();
   const { pageNumber } = usePageNumberStore();
   const { repoName } = useRepoNameStore();
   const { repoOwnerName } = useRepoOwnerNameStore();
 
   useEffect(() => {
+    setIsLoading(true);
+    setError(null);
+    setIsError(false);
     const fetchData = async () => {
-      setIsLoading(true);
-      setError(null);
-      setIsError(false);
       try {
         const response = await axiosFetch.get(
           GITHUB_API_PATH.getIssues(repoOwnerName, repoName, pageNumber),
@@ -39,6 +38,7 @@ export const useGetIssues = () => {
           }
           return [...prev, ...data];
         });
+        setIsLoading(false);
       } catch (error) {
         setError(error as AxiosError);
         setIsError(true);
@@ -47,7 +47,6 @@ export const useGetIssues = () => {
     if (!isSearchMode) {
       fetchData();
     }
-    setIsLoading(false);
   }, [isSearchMode, pageNumber]);
 
   return {
