@@ -15,13 +15,15 @@ interface IssueItemProps {
 export const IssueItem = ({ number, title, login, created_at, comments }: IssueItemProps) => {
   return (
     <S.Container>
-      <S.Left>
-        <S.MainInfo>{`#${number} ${title}`}</S.MainInfo>
-        <S.SubInfo>{`작성자: ${login}, 작성일: ${getKoreanDate(created_at)}`}</S.SubInfo>
-      </S.Left>
-      <S.Right>
-        <S.Comment>{`코멘트: ${comments}`}</S.Comment>
-      </S.Right>
+      <S._Link to={`/detail/${number}`}>
+        <S.Left>
+          <S.MainInfo>{`#${number} ${title}`}</S.MainInfo>
+          <S.SubInfo>{`작성자: ${login}, 작성일: ${getKoreanDate(created_at)}`}</S.SubInfo>
+        </S.Left>
+        <S.Right>
+          <S.Comment>{`코멘트: ${comments}`}</S.Comment>
+        </S.Right>
+      </S._Link>
     </S.Container>
   );
 };
