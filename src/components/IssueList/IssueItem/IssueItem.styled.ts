@@ -1,4 +1,5 @@
 import { styled } from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const Container = styled.li`
   width: 100%;
@@ -44,4 +45,12 @@ export const Comment = styled.div`
   font-size: 1.125rem;
   font-weight: 600;
   color: #6a737d;
+`;
+
+export const _Link = styled(Link)`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

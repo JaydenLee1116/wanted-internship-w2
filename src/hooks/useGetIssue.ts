@@ -31,13 +31,13 @@ export const useGetIssue = ({ issueNumber }: useGetIssueProps) => {
         );
         const { data } = response;
         setData(data);
+        setIsLoading(false);
       } catch (error) {
         setError(error as AxiosError);
         setIsError(true);
       }
     };
     fetchData();
-    setIsLoading(false);
   }, []);
 
   return {

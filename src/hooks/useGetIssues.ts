@@ -16,18 +16,20 @@ export const useGetIssues = () => {
   const [error, setError] = useState<AxiosError | null>(null);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isScrollLoading, setIsScrollLoading] = useState(false);
 
-  // FIXME: isSearchMode 로 useGetIssues 를 호출하는 로직을 분리해보기(클라/서버 상태 분리)
   const { isSearchMode } = useIsSearchModeStore();
   const { pageNumber } = usePageNumberStore();
   const { repoName } = useRepoNameStore();
   const { repoOwnerName } = useRepoOwnerNameStore();
 
   useEffect(() => {
+    setIsScrollLoading(true);
+
     const fetchData = async () => {
-      setIsLoading(true);
-      setError(null);
-      setIsError(false);
+      if (pageNumber === 1) {
+        setIsLoading(true);
+      }
       try {
         const response = await axiosFetch.get(
           GITHUB_API_PATH.getIssues(repoOwnerName, repoName, pageNumber),
@@ -39,6 +41,10 @@ export const useGetIssues = () => {
           }
           return [...prev, ...data];
         });
+        setIsScrollLoading(true);
+
+        setIsLoading(false);
+        setIsError(false);
       } catch (error) {
         setError(error as AxiosError);
         setIsError(true);
@@ -47,7 +53,6 @@ export const useGetIssues = () => {
     if (!isSearchMode) {
       fetchData();
     }
-    setIsLoading(false);
   }, [isSearchMode, pageNumber]);
 
   return {
@@ -55,5 +60,6 @@ export const useGetIssues = () => {
     error,
     isError,
     isLoading,
+    isScrollLoading,
   };
 };
