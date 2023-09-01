@@ -16,6 +16,7 @@ export const useGetIssues = () => {
   const [error, setError] = useState<AxiosError | null>(null);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isScrollLoading, setIsScrollLoading] = useState(false);
 
   const { isSearchMode } = useIsSearchModeStore();
   const { pageNumber } = usePageNumberStore();
@@ -23,10 +24,12 @@ export const useGetIssues = () => {
   const { repoOwnerName } = useRepoOwnerNameStore();
 
   useEffect(() => {
-    setIsLoading(true);
-    setError(null);
-    setIsError(false);
+    setIsScrollLoading(true);
+
     const fetchData = async () => {
+      if (pageNumber === 1) {
+        setIsLoading(true);
+      }
       try {
         const response = await axiosFetch.get(
           GITHUB_API_PATH.getIssues(repoOwnerName, repoName, pageNumber),
@@ -38,7 +41,10 @@ export const useGetIssues = () => {
           }
           return [...prev, ...data];
         });
+        setIsScrollLoading(true);
+
         setIsLoading(false);
+        setIsError(false);
       } catch (error) {
         setError(error as AxiosError);
         setIsError(true);
@@ -54,5 +60,6 @@ export const useGetIssues = () => {
     error,
     isError,
     isLoading,
+    isScrollLoading,
   };
 };

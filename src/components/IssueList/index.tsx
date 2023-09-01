@@ -18,7 +18,7 @@ import spinner from '../../assets/spinner.gif';
 import * as S from './IssueList.styled';
 
 export const IssueList = () => {
-  const { data = [], error, isError, isLoading } = useGetIssues();
+  const { data = [], error, isError, isLoading, isScrollLoading } = useGetIssues();
 
   if (isError) {
     return <div>{error?.message}</div>;
@@ -28,6 +28,10 @@ export const IssueList = () => {
   const target = useIntersectionObserver({
     callback: throttle({ callback: increasePageNumber, delay: 1000 }),
   });
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <S.Container>
@@ -53,7 +57,7 @@ export const IssueList = () => {
           )}
         </>
       ))}
-      {isLoading && <img src={spinner} />}
+      {isScrollLoading && <img src={spinner} />}
     </S.Container>
   );
 };
